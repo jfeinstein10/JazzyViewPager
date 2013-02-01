@@ -1,3 +1,51 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <item
+        android:id="@+id/menu_standard"
+        android:title="Standard" />
+    
+    <item
+        android:id="@+id/menu_tablet"
+        android:title="Tablet" />
+    
+    <item
+        android:id="@+id/menu_cube_in"
+        android:title="Cube In" />
+    
+    <item
+        android:id="@+id/menu_cube_out"
+        android:title="Cube Out" />
+    
+    <item
+        android:id="@+id/menu_flip_vertical"
+        android:title="Flip Vertical" />
+    
+    <item
+        android:id="@+id/menu_flip_horizontal"
+        android:title="Flip Horizontal" />
+    
+    <item
+        android:id="@+id/menu_stack"
+        android:title="Stack" />
+    
+    <item
+        android:id="@+id/menu_zoom_in"
+        android:title="Zoom In" />
+    
+    <item
+        android:id="@+id/menu_zoom_out"
+        android:title="Zoom Out" />
+    
+    <item
+        android:id="@+id/menu_rotate_up"
+        android:title="Rotate Up" />
+    
+    <item
+        android:id="@+id/menu_rotate_down"
+        android:title="Rotate Down" />
+    
+    <item
+        android:id="@+id/menu_accordian"
+        android:title="Accordian" />
+    
 </menu>
