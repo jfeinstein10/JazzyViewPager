@@ -4,6 +4,49 @@ JazzyViewPager
 An easy to use ViewPager that adds an awesome set of custom swiping animations. Just change your ViewPagers to JazzyViewPagers and you're good to go!
 
 
+Animations Available
+-------
+The `JazzyViewPager`'s animations are encapsulated in `TransitionEffect`. I'll be adding more, but if you can think of anything 
+in particular, let me know by filing an "Enhancement" in the Issues section.
+```java
+public enum TransitionEffect {
+    	Standard,
+		Tablet,
+		CubeIn,
+		CubeOut,
+		Flip,
+		Stack,
+		ZoomIn,
+		ZoomOut,
+		RotateUp,
+		RotateDown,
+		Accordion
+	}
+```
+You can select your animation by calling
+```java
+private JazzyViewPager mJazzy;
+/* ... */
+mJazzy.setTransitionEffect(TransitionEffect.*);
+```
+
+
+Modifying your `PagerAdapter`
+-------
+Due to the limitations of the `ViewPager` class (which `JazzyViewPager` is built upon) in order to get the animations to work correctly 
+for more than 3 Views, you'll have to add the following to the `instantiateItem` method of your `PagerAdapter`.
+```java
+private JazzyViewPager mJazzy;
+/* ... */
+@Override
+public Object instantiateItem(ViewGroup container, final int position) {
+    Object obj = super.instantiateItem(container, position);
+	mJazzy.setObjectForPosition(obj, position);
+	return obj;
+}
+```
+Once your `Object` is registered with the `JazzyViewPager`, you're good to go!
+
 License
 -------
 
