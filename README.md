@@ -1,7 +1,11 @@
 JazzyViewPager
 ==============
 
-An easy to use ViewPager that adds an awesome set of custom swiping animations. Just change your ViewPagers to JazzyViewPagers and you're good to go!
+An easy to use ViewPager that adds an awesome set of custom swiping animations. 
+Just change your ViewPagers to JazzyViewPagers and you're good to go!
+
+I've included a pretty barebones example of what the `TransitionEffect.Tablet` animation does. 
+The example app will get better, but this is just a first shot.
 
 This project was inspired by CyanogenMod's Trebuchet launcher.
 
