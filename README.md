@@ -4,6 +4,16 @@ JazzyViewPager
 An easy to use ViewPager that adds an awesome set of custom swiping animations. 
 Just change your ViewPagers to JazzyViewPagers and you're good to go!
 
+If you're looking at the name of the library and thinking "... so what does jazz have to do with it?"
+I'd like to direct you to the following definition that I found in a dictionary:
+
+```
+jazz someone or something up:
+	to make someone or something more exciting or sexy; to make someone or something appeal more to contemporary tastes
+```
+
+The aim of this library is to do exactly this: jazz up the normal, everyday `ViewPager`.
+	
 I've included a pretty barebones `apk` to show what the `TransitionEffect.Tablet` animation does. 
 The example app will get better, but this is just to get something in your hands quickly :D!
 
