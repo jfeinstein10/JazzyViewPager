@@ -25,6 +25,10 @@
         android:title="Flip Horizontal" />
     
     <item
+        android:id="@+id/menu_rotate_left_slide_right"
+        android:title="Rotate Left Slide Right" />
+    
+    <item
         android:id="@+id/menu_stack"
         android:title="Stack" />
     

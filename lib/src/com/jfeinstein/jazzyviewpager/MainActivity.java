@@ -57,7 +57,11 @@ public class MainActivity extends Activity {
 			break;
 		}
 		case R.id.menu_flip_horizontal: {
-			effect = TransitionEffect.FlipHorizonal;
+			effect = TransitionEffect.FlipHorizontal;
+			break;
+		}
+		case R.id.menu_rotate_left_slide_right: {
+			effect = TransitionEffect.RotateLeftSlideRight;
 			break;
 		}
 		case R.id.menu_stack: {
