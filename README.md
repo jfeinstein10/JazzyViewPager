@@ -9,7 +9,8 @@ I'd like to direct you to the following definition that I found in a dictionary:
 
 ```
 jazz someone or something up:
-	to make someone or something more exciting or sexy; to make someone or something appeal more to contemporary tastes
+	to make someone or something more exciting or sexy;
+	to make someone or something appeal more to contemporary tastes.
 ```
 
 The aim of this library is to do exactly this: jazz up the normal, everyday `ViewPager`.
