@@ -453,10 +453,10 @@ public class JazzyViewPager extends ViewPager {
 
 		float effectOffset = isSmall(positionOffset) ? 0 : positionOffset;
 		
-		mLeft = getChildAt(position);
-		mRight = getChildAt(position+1);
-//		mLeft = findViewFromObject(position);
-//		mRight = findViewFromObject(position+1);
+//		mLeft = getChildAt(position);
+//		mRight = getChildAt(position+1);
+		mLeft = findViewFromObject(position);
+		mRight = findViewFromObject(position+1);
 		
 		if (mFadeEnabled)
 			animateFade(mLeft, mRight, effectOffset);
@@ -511,7 +511,7 @@ public class JazzyViewPager extends ViewPager {
 		return Math.abs(positionOffset) < 0.0001;
 	}
 	
-	public void setItem(Object obj, int position) {
+	public void setObjectForPosition(Object obj, int position) {
 		mObjs.put(Integer.valueOf(position), obj);
 	}
 	
