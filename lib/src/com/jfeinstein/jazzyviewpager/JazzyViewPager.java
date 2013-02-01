@@ -1,5 +1,7 @@
 package com.jfeinstein.jazzyviewpager;
 
+import java.util.HashMap;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,6 +9,7 @@ import android.graphics.Camera;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Build;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -24,6 +27,8 @@ public class JazzyViewPager extends ViewPager {
 	private boolean mOutlineEnabled = false;
 	public static int sOutlineColor = Color.WHITE;
 	private TransitionEffect mEffect = TransitionEffect.Standard;
+	
+	private HashMap<Integer, Object> mObjs = new HashMap<Integer, Object>();
 
 	private static final float SCALE_MAX = 0.5f;
 	private static final float ZOOM_MAX = 0.5f;
@@ -447,18 +452,11 @@ public class JazzyViewPager extends ViewPager {
 			mState = State.GOING_RIGHT;
 
 		float effectOffset = isSmall(positionOffset) ? 0 : positionOffset;
-
-//		int limit = getOffscreenPageLimit();
-//		int curr = getCurrentItem();
-//		int min = Math.max(0, curr-limit);
-//		int max = Math.min(getAdapter().getCount()-1, curr+limit);
-//		mLeft = getChildAt(min + position);
-//		mRight = getChildAt(min + position + 1);
 		
 		mLeft = getChildAt(position);
 		mRight = getChildAt(position+1);
-//		mLeft = findViewWithTag(Integer.valueOf(position));
-//		mRight = findViewWithTag(Integer.valueOf(position+1));
+//		mLeft = findViewFromObject(position);
+//		mRight = findViewFromObject(position+1);
 		
 		if (mFadeEnabled)
 			animateFade(mLeft, mRight, effectOffset);
@@ -513,31 +511,20 @@ public class JazzyViewPager extends ViewPager {
 		return Math.abs(positionOffset) < 0.0001;
 	}
 	
-	public void setChildTag(View view, int position) {
-		setChildTag(view, R.id.jazzy_key, position);
+	public void setItem(Object obj, int position) {
+		mObjs.put(Integer.valueOf(position), obj);
 	}
 	
-	private void setChildTag(View view, int key, int position) {
-		view.setTag(key, Integer.valueOf(position));		
-	}
-	
-	private View findViewWithTag(Integer position) {
-		return findViewWithTag(R.id.jazzy_key, position);
-	}
-	
-	private View findViewWithTag(int key, Integer position) {
-		if (position == null)
-			return null;
-		if (getTag(key) == position)
-			return this;
+	private View findViewFromObject(int position) {
+		Object o = mObjs.get(Integer.valueOf(position));
+		PagerAdapter a = getAdapter();
+		View v;
 		for (int i = 0; i < getChildCount(); i++) {
-			View child = getChildAt(i);
-			if (child instanceof OutlineContainer)
-				child = ((OutlineContainer) child).getChildAt(0);
-			if (child.getTag(key).equals(position))
-				return child;
+			v = getChildAt(i);
+			if (a.isViewFromObject(v, o))
+				return v;
 		}
 		return null;
 	}
-
+	
 }
