@@ -13,7 +13,7 @@ jazz someone or something up:
 	to make someone or something appeal more to contemporary tastes.
 ```
 
-The aim of this library is to do exactly this: jazz up the normal, everyday `ViewPager`.
+**The aim of this library is to do exactly this: jazz up the normal, everyday `ViewPager`**
 	
 I've included a pretty barebones `apk` to show what the `TransitionEffect.Tablet` animation does. 
 The example app will get better, but this is just to get something in your hands quickly :D!
