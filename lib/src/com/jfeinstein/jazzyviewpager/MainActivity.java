@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
 
 public class MainActivity extends Activity {
-	
+
 	private JazzyViewPager mJazzy;
 
 	@Override
@@ -27,25 +27,27 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.activity_main, menu);
+		menu.add("Toggle Fade");
 		String[] effects = this.getResources().getStringArray(R.array.jazzy_effects);
 		for (String effect : effects)
 			menu.add(effect);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		TransitionEffect effect = TransitionEffect.valueOf(item.getTitle().toString());
-		setupJazziness(effect);
+		if (item.getTitle().toString().equals("Toggle Fade")) {
+			mJazzy.setFadeEnabled(!mJazzy.getFadeEnabled());
+		} else {
+			TransitionEffect effect = TransitionEffect.valueOf(item.getTitle().toString());
+			setupJazziness(effect);
+		}
 		return true;
 	}
-	
+
 	private void setupJazziness(TransitionEffect effect) {
 		mJazzy = (JazzyViewPager) findViewById(R.id.jazzy_pager);
 		mJazzy.setTransitionEffect(effect);
-		mJazzy.setFadeEnabled(false);
 		mJazzy.setAdapter(new MainAdapter());
 		mJazzy.setPageMargin(30);
 	}
@@ -59,7 +61,10 @@ public class MainActivity extends Activity {
 			text.setTextColor(Color.WHITE);
 			text.setText("Page " + position);
 			text.setPadding(30, 30, 30, 30);
-			text.setBackgroundColor(Color.BLACK);
+			int bg = Color.rgb((int) Math.floor(Math.random()*128)+64, 
+					(int) Math.floor(Math.random()*128)+64,
+					(int) Math.floor(Math.random()*128)+64);
+			text.setBackgroundColor(bg);
 			container.addView(text, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 			mJazzy.setObjectForPosition(text, position);
 			return text;

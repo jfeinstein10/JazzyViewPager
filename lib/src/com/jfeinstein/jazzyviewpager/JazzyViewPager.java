@@ -91,6 +91,10 @@ public class JazzyViewPager extends ViewPager {
 	public void setFadeEnabled(boolean enabled) {
 		mFadeEnabled = enabled;
 	}
+	
+	public boolean getFadeEnabled() {
+		return mFadeEnabled;
+	}
 
 	public void setOutlineEnabled(boolean enabled) {
 		mOutlineEnabled = enabled;
