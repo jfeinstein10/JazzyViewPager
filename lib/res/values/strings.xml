@@ -3,12 +3,13 @@
 
     <string name="app_name">JazzyViewPager</string>
 
-    <string-array name="animatevp_effects">
+    <string-array name="jazzy_effects">
         <item>Standard</item>
         <item>Tablet</item>
         <item>CubeIn</item>
         <item>CubeOut</item>
-        <item>Flip</item>
+        <item>FlipVertical</item>
+        <item>FlipHorizontal</item>
         <item>Stack</item>
         <item>ZoomIn</item>
         <item>ZoomOut</item>

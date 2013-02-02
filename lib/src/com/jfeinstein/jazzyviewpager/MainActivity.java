@@ -28,63 +28,16 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
+//		getMenuInflater().inflate(R.menu.activity_main, menu);
+		String[] effects = this.getResources().getStringArray(R.array.jazzy_effects);
+		for (String effect : effects)
+			menu.add(effect);
 		return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		TransitionEffect effect = TransitionEffect.Standard;
-		switch(item.getItemId()) {
-		case R.id.menu_standard: {
-			effect = TransitionEffect.Standard;
-			break;
-		}
-		case R.id.menu_tablet: {
-			effect = TransitionEffect.Tablet;
-			break;
-		}
-		case R.id.menu_cube_in: {
-			effect = TransitionEffect.CubeIn;
-			break;
-		}
-		case R.id.menu_cube_out: {
-			effect = TransitionEffect.CubeOut;
-			break;
-		}
-		case R.id.menu_flip_vertical: {
-			effect = TransitionEffect.FlipVertical;
-			break;
-		}
-		case R.id.menu_flip_horizontal: {
-			effect = TransitionEffect.FlipHorizonal;
-			break;
-		}
-		case R.id.menu_stack: {
-			effect = TransitionEffect.Stack;
-			break;
-		}
-		case R.id.menu_zoom_in: {
-			effect = TransitionEffect.ZoomIn;
-			break;
-		}
-		case R.id.menu_zoom_out: {
-			effect = TransitionEffect.ZoomOut;
-			break;
-		}
-		case R.id.menu_rotate_up: {
-			effect = TransitionEffect.RotateUp;
-			break;
-		}
-		case R.id.menu_rotate_down: {
-			effect = TransitionEffect.RotateDown;
-			break;
-		}
-		case R.id.menu_accordian: {
-			effect = TransitionEffect.Accordion;
-			break;
-		}
-		}
+		TransitionEffect effect = TransitionEffect.valueOf(item.getTitle().toString());
 		setupJazziness(effect);
 		return true;
 	}

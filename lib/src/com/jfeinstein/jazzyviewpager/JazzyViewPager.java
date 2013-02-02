@@ -1,6 +1,7 @@
 package com.jfeinstein.jazzyviewpager;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -28,7 +29,7 @@ public class JazzyViewPager extends ViewPager {
 	public static int sOutlineColor = Color.WHITE;
 	private TransitionEffect mEffect = TransitionEffect.Standard;
 	
-	private HashMap<Integer, Object> mObjs = new HashMap<Integer, Object>();
+	private HashMap<Integer, Object> mObjs = new LinkedHashMap<Integer, Object>();
 
 	private static final float SCALE_MAX = 0.5f;
 	private static final float ZOOM_MAX = 0.5f;
@@ -40,7 +41,7 @@ public class JazzyViewPager extends ViewPager {
 		CubeIn,
 		CubeOut,
 		FlipVertical,
-		FlipHorizonal,
+		FlipHorizontal,
 		Stack,
 		ZoomIn,
 		ZoomOut,
@@ -50,7 +51,6 @@ public class JazzyViewPager extends ViewPager {
 	}
 
 	private static final boolean API_11;
-
 	static {
 		API_11 = Build.VERSION.SDK_INT >= 11;
 	}
@@ -66,7 +66,7 @@ public class JazzyViewPager extends ViewPager {
 		// now style everything!
 		TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.JazzyViewPager);
 		int effect = ta.getInt(R.styleable.JazzyViewPager_style, 0);
-		String[] transitions = getResources().getStringArray(R.array.animatevp_effects);
+		String[] transitions = getResources().getStringArray(R.array.jazzy_effects);
 		setTransitionEffect(TransitionEffect.valueOf(transitions[effect]));
 		setFadeEnabled(ta.getBoolean(R.styleable.JazzyViewPager_fadeEnabled, false));
 		setOutlineEnabled(ta.getBoolean(R.styleable.JazzyViewPager_outlineEnabled, false));
@@ -160,41 +160,41 @@ public class JazzyViewPager extends ViewPager {
 		GOING_LEFT,
 		GOING_RIGHT
 	}
-
+	
 //	public void reset() {
-//		resetPrivate();
-//		int curr = getCurrentItem();
-//		onPageScrolled(curr, 0.0f, 0);
+//	resetPrivate();
+//	int curr = getCurrentItem();
+//	onPageScrolled(curr, 0.0f, 0);
+//}
+//
+//private void resetPrivate() {
+//	for (int i = 0; i < getChildCount(); i++) {
+//		View v = getChildAt(i);
+//		//			ViewHelper.setRotation(v, -ViewHelper.getRotation(v));
+//		//			ViewHelper.setRotationX(v, -ViewHelper.getRotationX(v));
+//		//			ViewHelper.setRotationY(v, -ViewHelper.getRotationY(v));
+//		//
+//		//			ViewHelper.setTranslationX(v, -ViewHelper.getTranslationX(v));
+//		//			ViewHelper.setTranslationY(v, -ViewHelper.getTranslationY(v));
+//
+//		ViewHelper.setRotation(v, 0);
+//		ViewHelper.setRotationX(v, 0);
+//		ViewHelper.setRotationY(v, 0);
+//
+//		ViewHelper.setTranslationX(v, 0);
+//		ViewHelper.setTranslationY(v, 0);
+//
+//		ViewHelper.setAlpha(v, 1.0f);
+//
+//		ViewHelper.setScaleX(v, 1.0f);
+//		ViewHelper.setScaleY(v, 1.0f);
+//
+//		ViewHelper.setPivotX(v, 0);
+//		ViewHelper.setPivotY(v, 0);
+//
+//		logState(v, "Child " + i);
 //	}
-//
-//	private void resetPrivate() {
-//		for (int i = 0; i < getChildCount(); i++) {
-//			View v = getChildAt(i);
-//			//			ViewHelper.setRotation(v, -ViewHelper.getRotation(v));
-//			//			ViewHelper.setRotationX(v, -ViewHelper.getRotationX(v));
-//			//			ViewHelper.setRotationY(v, -ViewHelper.getRotationY(v));
-//			//
-//			//			ViewHelper.setTranslationX(v, -ViewHelper.getTranslationX(v));
-//			//			ViewHelper.setTranslationY(v, -ViewHelper.getTranslationY(v));
-//
-//			ViewHelper.setRotation(v, 0);
-//			ViewHelper.setRotationX(v, 0);
-//			ViewHelper.setRotationY(v, 0);
-//
-//			ViewHelper.setTranslationX(v, 0);
-//			ViewHelper.setTranslationY(v, 0);
-//
-//			ViewHelper.setAlpha(v, 1.0f);
-//
-//			ViewHelper.setScaleX(v, 1.0f);
-//			ViewHelper.setScaleY(v, 1.0f);
-//
-//			ViewHelper.setPivotX(v, 0);
-//			ViewHelper.setPivotY(v, 0);
-//
-//			logState(v, "Child " + i);
-//		}
-//	}
+//}
 
 	private void logState(View v, String title) {
 		Log.v(TAG, title + ": ROT (" + ViewHelper.getRotation(v) + ", " +
@@ -514,7 +514,7 @@ public class JazzyViewPager extends ViewPager {
 		case FlipVertical:
 			animateFlipVertical(mLeft, mRight, positionOffset, positionOffsetPixels);
 			break;
-		case FlipHorizonal:
+		case FlipHorizontal:
 			animateFlipHorizontal(mLeft, mRight, effectOffset, positionOffsetPixels);
 		case Stack:
 			animateStack(mLeft, mRight, effectOffset, positionOffsetPixels);

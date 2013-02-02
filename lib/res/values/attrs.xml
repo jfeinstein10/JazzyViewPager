@@ -7,13 +7,14 @@
             <enum name="tablet" value="1" />
             <enum name="cubein" value="2" />
             <enum name="cubeout" value="3" />
-            <enum name="flip" value="4" />
-            <enum name="stack" value="5" />
-            <enum name="zoomin" value="6" />
-            <enum name="zoomout" value="7" />
-            <enum name="rotateup" value="8" />
-            <enum name="rotatedown" value="9" />
-            <enum name="accordion" value="10" />
+            <enum name="flipvertical" value="4" />
+            <enum name="fliphorizontal" value="5" />
+            <enum name="stack" value="6" />
+            <enum name="zoomin" value="7" />
+            <enum name="zoomout" value="8" />
+            <enum name="rotateup" value="9" />
+            <enum name="rotatedown" value="10" />
+            <enum name="accordion" value="11" />
         </attr>
         <attr name="fadeEnabled" format="boolean" />
         <attr name="outlineEnabled" format="boolean" />
