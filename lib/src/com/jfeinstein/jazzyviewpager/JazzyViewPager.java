@@ -35,6 +35,9 @@ public class JazzyViewPager extends ViewPager {
 	private static final float ZOOM_MAX = 0.5f;
 	private static final float ROT_MAX = 15.0f;
 
+    private static final float ZOOM_OUT_IN_MIN_SCALE = 0.85f;
+    private static final float ZOOM_OUT_IN_MIN_ALPHA = 0.5f;
+
 	public enum TransitionEffect {
 		Standard,
 		Tablet,
@@ -47,7 +50,8 @@ public class JazzyViewPager extends ViewPager {
 		ZoomOut,
 		RotateUp,
 		RotateDown,
-		Accordion
+		Accordion,
+        ZoomOutAndIn
 	}
 
 	private static final boolean API_11;
@@ -412,6 +416,78 @@ public class JazzyViewPager extends ViewPager {
 		}
 	}
 
+    /**
+     * This animation refers to the Zoom-out page transformer available on developer.android.com
+     * @see <a>http://developer.android.com/training/animation/screen-slide.html</a>
+     * @param left
+     * @param right
+     * @param positionOffset
+     */
+    private void animateZoomOutAndIn(View left, View right, float positionOffset) {
+
+        if (mState != State.IDLE) {
+            if (left != null) {
+                int pageWidth = left.getWidth();
+                int pageHeight = left.getHeight();
+
+                manageLayer(left, true);
+                if (positionOffset < -1) {
+                    ViewHelper.setAlpha(left, 0f);
+                } else if (positionOffset < 1) {
+                    float scaleFactor = Math.max(ZOOM_OUT_IN_MIN_SCALE, 1 - Math.abs(positionOffset));
+                    float vertMargin = pageHeight * (1 - scaleFactor) / 2;
+                    float horzMargin = pageWidth * (1 - scaleFactor) / 2;
+
+                    if (positionOffset < 0) {
+                        ViewHelper.setTranslationX(left, horzMargin - vertMargin / 2);
+                    } else {
+                        ViewHelper.setTranslationX(left, -horzMargin + vertMargin / 2);
+                    }
+
+                    ViewHelper.setScaleX(left, scaleFactor);
+                    ViewHelper.setScaleY(left, scaleFactor);
+
+                    ViewHelper.setAlpha(left,ZOOM_OUT_IN_MIN_ALPHA +
+                            (scaleFactor - ZOOM_OUT_IN_MIN_SCALE) / (1 - ZOOM_OUT_IN_MIN_SCALE) *
+                                    (1- ZOOM_OUT_IN_MIN_ALPHA));
+
+                } else {
+                    ViewHelper.setAlpha(left, 0f);
+                }
+            }
+
+            if (right != null) {
+                int pageWidth = right.getWidth();
+                int pageHeight = right.getHeight();
+
+                manageLayer(right, true);
+                if (positionOffset < -1) {
+                    ViewHelper.setAlpha(right, 0f);
+                } else if (positionOffset < 1) {
+                    float scaleFactor = Math.max(ZOOM_OUT_IN_MIN_SCALE, 1 - Math.abs(positionOffset - 1));
+                    float vertMargin = pageHeight * (1 - scaleFactor) / 2;
+                    float horzMargin = pageWidth * (1 - scaleFactor) / 2;
+
+                    if (positionOffset < 0) {
+                        ViewHelper.setTranslationX(right, horzMargin - vertMargin / 2);
+                    } else {
+                        ViewHelper.setTranslationX(right, -horzMargin + vertMargin / 2);
+                    }
+
+                    ViewHelper.setScaleX(right, scaleFactor);
+                    ViewHelper.setScaleY(right, scaleFactor);
+
+                    ViewHelper.setAlpha(right, ZOOM_OUT_IN_MIN_ALPHA +
+                            (scaleFactor - ZOOM_OUT_IN_MIN_SCALE) / (1 - ZOOM_OUT_IN_MIN_SCALE) *
+                                    (1 - ZOOM_OUT_IN_MIN_ALPHA));
+
+                } else {
+                    ViewHelper.setAlpha(right, 0f);
+                }
+            }
+        }
+    }
+
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void manageLayer(View v, boolean enableHardware) {
 		if (!API_11) return;
@@ -538,6 +614,9 @@ public class JazzyViewPager extends ViewPager {
 		case Accordion:
 			animateAccordion(mLeft, mRight, effectOffset);
 			break;
+        case ZoomOutAndIn:
+            animateZoomOutAndIn(mLeft, mRight, effectOffset);
+            break;
 		}
 
 		super.onPageScrolled(position, positionOffset, positionOffsetPixels);
