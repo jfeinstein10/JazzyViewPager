@@ -559,6 +559,9 @@ public class JazzyViewPager extends ViewPager {
 	
 	private View findViewFromObject(int position) {
 		Object o = mObjs.get(Integer.valueOf(position));
+		if (o == null) {
+			return null;
+		}
 		PagerAdapter a = getAdapter();
 		View v;
 		for (int i = 0; i < getChildCount(); i++) {
