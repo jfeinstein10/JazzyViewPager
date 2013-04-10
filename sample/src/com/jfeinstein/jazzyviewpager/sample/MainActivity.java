@@ -1,4 +1,4 @@
-package com.jfeinstein.jazzyviewpager;
+package com.jfeinstein.jazzyviewpager.sample;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
+import com.jfeinstein.jazzyviewpager.JazzyViewPager;
 import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
 
 public class MainActivity extends Activity {
@@ -28,9 +29,8 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add("Toggle Fade");
-		String[] effects = this.getResources().getStringArray(R.array.jazzy_effects);
-		for (String effect : effects)
-			menu.add(effect);
+		for (TransitionEffect effect : JazzyViewPager.TransitionEffect.values())
+			menu.add(effect.toString());
 		return true;
 	}
 
