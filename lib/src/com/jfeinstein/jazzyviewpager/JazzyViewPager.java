@@ -409,6 +409,9 @@ public class JazzyViewPager extends ViewPager {
 				ViewHelper.setScaleY(right, mScale);
 				ViewHelper.setTranslationX(right, mTrans);
 			}
+			if (left != null) {
+				left.bringToFront();
+			}
 		}
 	}
 
