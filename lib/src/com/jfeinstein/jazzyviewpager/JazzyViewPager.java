@@ -560,7 +560,7 @@ public class JazzyViewPager extends ViewPager {
 		mObjs.put(Integer.valueOf(position), obj);
 	}
 	
-	private View findViewFromObject(int position) {
+	public View findViewFromObject(int position) {
 		Object o = mObjs.get(Integer.valueOf(position));
 		if (o == null) {
 			return null;

@@ -71,16 +71,19 @@ public class MainActivity extends Activity {
 		}
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object obj) {
-			container.removeView((View) obj);
+			container.removeView(mJazzy.findViewFromObject(position));
 		}
 		@Override
 		public int getCount() {
 			return 10;
 		}
 		@Override
-		public boolean isViewFromObject(View arg0, Object arg1) {
-			return arg0 == arg1;
+		public boolean isViewFromObject(View view, Object obj) {
+			if (view instanceof OutlineContainer) {
+				return ((OutlineContainer) view).getChildAt(0) == obj;
+			} else {
+				return view == obj;
+			}
 		}		
 	}
-
 }
