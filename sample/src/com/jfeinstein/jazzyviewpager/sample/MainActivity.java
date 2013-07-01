@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
-
 import com.jfeinstein.jazzyviewpager.JazzyViewPager;
 import com.jfeinstein.jazzyviewpager.JazzyViewPager.TransitionEffect;
+import com.jfeinstein.jazzyviewpager.OutlineContainer;
 
 public class MainActivity extends Activity {
 
