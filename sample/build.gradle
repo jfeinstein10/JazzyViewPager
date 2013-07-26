@@ -1,0 +1,28 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath 'com.android.tools.build:gradle:0.5+'
+	}
+}
+
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile 'com.android.support:support-v4:13.0.+'
+	compile 'com.nineoldandroids:library:2.4.0'
+
+	compile project(':lib')
+}
+
+
+android {
+	compileSdkVersion 17
+	buildToolsVersion "17.0.0"
+}
