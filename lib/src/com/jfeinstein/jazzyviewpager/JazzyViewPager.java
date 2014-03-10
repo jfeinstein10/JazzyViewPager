@@ -1,7 +1,8 @@
 package com.jfeinstein.jazzyviewpager;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -29,7 +30,8 @@ public class JazzyViewPager extends ViewPager {
 	public static int sOutlineColor = Color.WHITE;
 	private TransitionEffect mEffect = TransitionEffect.Standard;
 	
-	private HashMap<Integer, Object> mObjs = new LinkedHashMap<Integer, Object>();
+	private Method mInfoForPosition;
+	private Field mItemInfoObject;
 
 	private static final float SCALE_MAX = 0.5f;
 	private static final float ZOOM_MAX = 0.5f;
@@ -495,12 +497,10 @@ public class JazzyViewPager extends ViewPager {
 			mState = State.GOING_RIGHT;
 
 		float effectOffset = isSmall(positionOffset) ? 0 : positionOffset;
-		
-//		mLeft = getChildAt(position);
-//		mRight = getChildAt(position+1);
-		mLeft = findViewFromObject(position);
-		mRight = findViewFromObject(position+1);
-		
+
+		mLeft = findViewFromPosition(position);
+		mRight = findViewFromPosition(position + 1);
+
 		if (mFadeEnabled)
 			animateFade(mLeft, mRight, effectOffset);
 		if (mOutlineEnabled)
@@ -555,16 +555,51 @@ public class JazzyViewPager extends ViewPager {
 	private boolean isSmall(float positionOffset) {
 		return Math.abs(positionOffset) < 0.0001;
 	}
-	
-	public void setObjectForPosition(Object obj, int position) {
-		mObjs.put(Integer.valueOf(position), obj);
+
+	private Object getObjectFromPosition(int position) {
+		Object object = null;
+
+		try {
+			if (mInfoForPosition == null) {
+				mInfoForPosition = ViewPager.class.getDeclaredMethod("infoForPosition", int.class);
+				mInfoForPosition.setAccessible(true);
+			}
+
+			Object info = mInfoForPosition.invoke(this, position);
+			if (info == null) {
+				return object;
+			}
+
+			if (mItemInfoObject == null) {
+				mItemInfoObject = info.getClass().getDeclaredField("object");
+				mItemInfoObject.setAccessible(true);
+			}
+
+			object = mItemInfoObject.get(info);
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		}
+
+		return object;
 	}
-	
-	public View findViewFromObject(int position) {
-		Object o = mObjs.get(Integer.valueOf(position));
+
+	public View findViewFromPosition(int position) {
+		Object o = getObjectFromPosition(position);
 		if (o == null) {
 			return null;
 		}
+		return findViewFromObject(o);
+	}
+
+	public View findViewFromObject(Object o) {
 		PagerAdapter a = getAdapter();
 		View v;
 		for (int i = 0; i < getChildCount(); i++) {
