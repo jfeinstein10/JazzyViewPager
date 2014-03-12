@@ -66,12 +66,11 @@ public class MainActivity extends Activity {
 					(int) Math.floor(Math.random()*128)+64);
 			text.setBackgroundColor(bg);
 			container.addView(text, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-			mJazzy.setObjectForPosition(text, position);
 			return text;
 		}
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object obj) {
-			container.removeView(mJazzy.findViewFromObject(position));
+			container.removeView(mJazzy.findViewFromObject(obj));
 		}
 		@Override
 		public int getCount() {
